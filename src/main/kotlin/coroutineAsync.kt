@@ -12,4 +12,9 @@ fun main()= runBlocking{ // Create a blocking coroutine that executes in current
 
     val num:Int = jobDeferred.await()
     println("Main program ends: ${Thread.currentThread().name}") // Complete the amin Thread
+
+}
+
+suspend fun myOwnSuspendingFunc(){
+    delay(1000)
 }
