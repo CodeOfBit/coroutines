@@ -1,18 +1,15 @@
 import kotlinx.coroutines.*
 
-/*
-*  ********************************* Note ***********************************
-*   Hare we used coroutine scope function and join and job function
-*/
 fun main()= runBlocking{ // Create a blocking coroutine that executes in current thread (main)
 
     println("Main program starts: ${Thread.currentThread().name}") // Main Thread
-    val job : Job = launch { // Thread T1
+    val jobDeferred : Deferred<Int> = async { // Thread T1
         println("Fake work stats: ${Thread.currentThread().name}") // Thread T1
         delay(1000)  // Coroutine is suspended but Theread : T1 is free (not blocking)
         println("Fake work finished: ${Thread.currentThread().name}") // Either T1 or some other thread
+        15
     }
 
-    job.join()
+    val num:Int = jobDeferred.await()
     println("Main program ends: ${Thread.currentThread().name}") // Complete the amin Thread
 }
